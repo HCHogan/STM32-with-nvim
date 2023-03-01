@@ -2,7 +2,7 @@
 TARGET = LED_project
 
 #设定临时性环境变量
-export CC             = arm-none-eabi-gcc           
+export CC             = arm-none-eabi-gcc
 export AS             = arm-none-eabi-as
 export LD             = arm-none-eabi-ld
 export OBJCOPY        = arm-none-eabi-objcopy
@@ -11,11 +11,11 @@ export OBJCOPY        = arm-none-eabi-objcopy
 TOP=$(shell pwd)
 
 #设定包含文件目录
-INC_FLAGS= -I $(TOP)/CORE                  \
-           -I $(TOP)/HARDWARE    \
-           -I $(TOP)/STM32F10x_FWLib/inc             \
-           -I $(TOP)/SYSTEM        \
-           -I $(TOP)/USER
+inc_flags= -i $(top)/core                  \
+           -i $(top)/hardware    \
+           -i $(top)/stm32f10x_fwlib/inc             \
+           -i $(top)/system        \
+           -i $(top)/user
 
 CFLAGS =  -W -Wall -g -mcpu=cortex-m3 -mthumb -D STM32F10X_HD -D USE_STDPERIPH_DRIVER $(INC_FLAGS) -O0 -std=gnu11
 C_SRC=$(shell find ./ -name '*.c')  
@@ -30,6 +30,7 @@ all:$(C_OBJ)
 
 $(C_OBJ):%.o:%.c
 	$(CC) -c $(CFLAGS) -o $@ $<
+
 clean:
 	rm -f $(shell find ./ -name '*.o')
 	rm -f $(shell find ./ -name '*.d')
